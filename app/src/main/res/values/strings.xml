@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">moth_6_dz_1</string>
+    <string name="go">Go</string>
+    <string name="write_smt">Напишите что-то</string>
+    <string name="go_back">Go back</string>
+    <string name="one_activity">Это первая страница</string>
+    <string name="two_activity">Это вторая страница</string>
+    <string name="button">Button</string>
+    <string name="Write_something">Напишите что-нибудь</string>
+</resources>
