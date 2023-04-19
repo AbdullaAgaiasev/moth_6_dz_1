@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.moth_6_dz_1.SendTextContract.Key.TEXT_KEY
 import com.example.moth_6_dz_1.databinding.TransitionActivityBinding
 
 class TransitionActivity: AppCompatActivity() {
@@ -14,14 +15,23 @@ class TransitionActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = TransitionActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        initClickers()
+    }
 
-        binding.editText2.setText(intent.getStringExtra("text1"))
-
+    private fun initClickers() {
+        binding.editText2.setText(intent.getCharSequenceExtra(TEXT_KEY))
         binding.button2.setOnClickListener {
-            val intent = Intent()
-            intent.putExtra("text1", binding.editText2.text.toString())
-            setResult(Activity.RESULT_OK, intent)
-            finish()
+            if (binding.editText2.text.isNotEmpty()) {
+                sendResult()
+            } else {
+                toastShort(this, "Здесь не должно быть пусто!")
+            }
         }
+    }
+
+    private fun sendResult() {
+        val data = Intent().putExtra(TEXT_KEY, binding.editText2.text as CharSequence)
+        setResult(RESULT_OK, data)
+        finish()
     }
 }

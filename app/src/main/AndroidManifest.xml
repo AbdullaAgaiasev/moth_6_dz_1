@@ -12,6 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Moth_6_dz_1"
         tools:targetApi="31">
+        <activity android:name=".TransitionActivity"
+            android:exported="false"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">

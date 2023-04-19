@@ -12,27 +12,23 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val launcher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK && result.data != null) {
-                val text = result.data?.getStringExtra("text")
-                binding.editText1.setText(text)
-            }
-        }
+    private val getText = registerForActivityResult(SendTextContract()) {
+        binding.editText1.setText(it)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
+        initClickers()
+    }
 
+    private fun initClickers() {
         binding.button1.setOnClickListener {
-            if (binding.editText1.text.isEmpty()) {
-                Toast.makeText(this, "Это поле не может быть пустым!", Toast.LENGTH_SHORT).show()
+            if (binding.editText1.text.isNotEmpty()) {
+                getText.launch(binding.editText1.text)
             } else {
-                val intent = Intent(this, TransitionActivity::class.java)
-                intent.putExtra("text1", binding.editText1.text.toString())
-                setResult(Activity.RESULT_OK, intent)
-                launcher.launch(intent)
+                toastShort(this, "Здесь не должно быть пусто!")
             }
         }
     }
